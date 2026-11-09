@@ -174,8 +174,8 @@ footer{color:var(--muted);font-size:12.5px;padding:16px 0 40px;border-top:1px so
 <h2>Order of attack: every subject, every week</h2>
 <p>Don't finish SQL before starting the rest. Each week you do some SQL, pandas, stats and probability, and ML, plus re-solves of older questions, so nothing goes cold. The <b>Today's plan</b> tab picks the exact questions for each day and brings old ones back for review. It starts the first day you open it.</p>
 <ul>
-<li><b>Monday to Saturday, about 80 minutes:</b> 2 SQL and 2 pandas every day, then either 3 stats and probability questions (Mon, Wed, Fri) or 5 ML questions answered out loud (Tue, Thu, Sat), then 2 re-solves.</li>
-<li><b>Sunday:</b> no new questions. Up to 8 re-solves and 1 project or A/B item.</li>
+<li><b>Monday to Saturday, about 90 minutes:</b> 2 SQL and 2 pandas every day, then either 3 stats and probability questions (Mon, Wed, Fri) or 5 ML questions answered out loud (Tue, Thu, Sat), then the re-solves due that day, mostly the questions you did a week earlier.</li>
+<li><b>Sunday:</b> a light day. 1 project or A/B item, plus any re-solves due or left over from the week.</li>
 <li><b>At this pace</b> the <span class="n-core">500</span> core items take about 11 weeks.</li>
 <li><b>After that: polish.</b> Project deep-dives, a practice take-home, mock interviews. Keep the 30-day SQL roadmap and Mode as your reading alongside the questions.</li>
 </ul>
@@ -217,19 +217,21 @@ footer{color:var(--muted);font-size:12.5px;padding:16px 0 40px;border-top:1px so
 <p class="small muted">Dates assume you follow the weekly plan below. When a subject's core list is finished, its daily slots move to its partner (SQL and pandas swap, stats and ML swap), so the rest speeds up.</p>
 
 <h2>The weekly plan</h2>
-<p>About 80 minutes a day. SQL and pandas get a slot every day because coding is where most people need the most practice. Theory alternates between stats and ML.</p>
+<p>About 90 minutes a day. SQL and pandas get a slot every day because coding is where most people need the most practice. Theory alternates between stats and ML.</p>
 <div class="tw"><table>
 <tr><th>Day</th><th>SQL</th><th>pandas / Python</th><th>Theory</th><th>Review</th></tr>
-<tr><td>Mon, Wed, Fri</td><td>2 new</td><td>2 new</td><td>3 stats &amp; probability</td><td>2 re-solves</td></tr>
-<tr><td>Tue, Thu, Sat</td><td>2 new</td><td>2 new</td><td>5 ML questions, out loud</td><td>2 re-solves</td></tr>
-<tr><td>Sunday</td><td colspan="3">No new questions. 1 project or A/B item from "Case &amp; projects".</td><td>up to 8 re-solves</td></tr>
+<tr><td>Mon, Wed, Fri</td><td>2 new</td><td>2 new</td><td>3 stats &amp; probability</td><td>last week's questions, once each</td></tr>
+<tr><td>Tue, Thu, Sat</td><td>2 new</td><td>2 new</td><td>5 ML questions, out loud</td><td>last week's questions, once each</td></tr>
+<tr><td>Sunday</td><td colspan="3">No new questions. 1 project or A/B item from "Case &amp; projects".</td><td>anything left over</td></tr>
 </table></div>
-<p class="small muted">Per week: 12 SQL, 12 pandas, 9 stats and probability, 15 ML, 1 project or case item, and about 20 re-solves.</p>
+<p class="small muted">Per week: 12 SQL, 12 pandas, 9 stats and probability, 15 ML and 1 project or case item, plus one re-solve of each question a week later (about 48, roughly 20 minutes a day).</p>
 
 <h3>How the review stops you forgetting</h3>
 <ul>
-<li>When you tick a question, it comes back here for a re-solve <b>3 days</b> later, then <b>7 days</b> after that, then <b>21</b>. After the third re-solve it's retired.</li>
-<li>Re-solve from a blank editor, or answer out loud, then press <b>Re-solved</b>. If you couldn't do it, leave it: it stays on the list until you can.</li>
+<li>When you tick a question, it comes back here once, <b>7 days</b> later, for a re-solve from memory. Press <b>Re-solved</b> and it's done.</li>
+<li>Re-solve from a blank editor, or answer out loud. If you couldn't do it, leave it: it comes back the next day until you can.</li>
+<li>Every re-solve that's due is on the list, so nothing piles up or comes back late. Courses and project or A/B items don't come back.</li>
+<li>A new day starts at 4 am, so a session past midnight still counts as the same day.</li>
 
 </ul>
 
@@ -307,8 +309,9 @@ function match(i) {
 }
 const pass = i => match(i) && !(S.f.hide && S.done[i.k]);
 
-// ---------- plan: local day numbers, so "today" changes at midnight
-const today = () => { const t = new Date(); return Math.floor((t - t.getTimezoneOffset() * 6e4) / 864e5); };
+// ---------- plan: local day numbers. A new day starts at 4 am, so a session past midnight still counts as the same day.
+const today = () => { const t = new Date(); return Math.floor((t - t.getTimezoneOffset() * 6e4 - 4 * 36e5) / 864e5); };
+const weekday = () => (today() + 4) % 7; // 0 = Sunday, like Date.getDay(); day 0 (1 Jan 1970) was a Thursday
 const dateOf = n => new Date(n * 864e5).toLocaleDateString(undefined, {day: 'numeric', month: 'short', timeZone: 'UTC'});
 const longDate = n => new Date(n * 864e5).toLocaleDateString(undefined, {weekday: 'long', day: 'numeric', month: 'long', timeZone: 'UTC'});
 // The plan's first day (DATA.start, set in build_sheet.py). Before it, the plan tab only says when it starts.
@@ -324,13 +327,16 @@ const TRACKS = [ // each inner list is worked round-robin; the lists run one aft
 ];
 const PARTNER = {sql: 'py', py: 'sql', st: 'ml', ml: 'st', cs: 'py'};
 const WEEK = [ // Sunday first, like Date.getDay()
-  {cs: 1, rv: 8},
-  {sql: 2, py: 2, st: 3, rv: 2}, {sql: 2, py: 2, ml: 5, rv: 2},
-  {sql: 2, py: 2, st: 3, rv: 2}, {sql: 2, py: 2, ml: 5, rv: 2},
-  {sql: 2, py: 2, st: 3, rv: 2}, {sql: 2, py: 2, ml: 5, rv: 2},
+  {cs: 1},
+  {sql: 2, py: 2, st: 3}, {sql: 2, py: 2, ml: 5},
+  {sql: 2, py: 2, st: 3}, {sql: 2, py: 2, ml: 5},
+  {sql: 2, py: 2, st: 3}, {sql: 2, py: 2, ml: 5},
 ];
 const PER_WEEK = {sql: 12, py: 12, st: 9, ml: 15, cs: 1};
-const RV_GAP = [7, 21]; // days to the 2nd and 3rd re-solve; the 1st comes 3 days after ticking
+// A ticked question comes back once, RV_AFTER days later, and every due re-solve is shown, so none pile up.
+const RV_AFTER = 7;
+// Courses and guides (r) and the project / A/B checklist don't come back for a re-solve.
+const reviewable = it => !!it && !it.r && it.s !== 'case';
 TRACKS.forEach(t => {
   t.items = [];
   t.seq.forEach(set => {
@@ -352,7 +358,7 @@ function quotas(dow) {
   return q;
 }
 function makeSet(taken) {
-  const q = quotas(new Date().getDay());
+  const q = quotas(weekday());
   return TRACKS.filter(t => q[t.id]).map(t => {
     const keys = [];
     for (const i of t.items) {
@@ -367,8 +373,8 @@ function makeSet(taken) {
 function ensureToday() {
   const td = today();
   if (S.today && S.today.day === td) return S.today;
-  const due = Object.keys(S.rv).filter(k => BYK[k] && S.rv[k].d <= td).sort((a, b) => S.rv[a].d - S.rv[b].d);
-  S.today = {day: td, slots: makeSet(new Set()), rv: due.slice(0, WEEK[new Date().getDay()].rv || 0), rd: {}};
+  const due = Object.keys(S.rv).filter(k => reviewable(BYK[k]) && S.rv[k].d <= td).sort((a, b) => S.rv[a].d - S.rv[b].d);
+  S.today = {day: td, slots: makeSet(new Set()), rv: due, rd: {}};
   save();
   return S.today;
 }
@@ -381,7 +387,7 @@ if (!S.seeded) {
   let c = 0; const seen = new Set();
   Object.keys(S.done).forEach(k => {
     const it = BYK[k];
-    if (!it || it.r || seen.has(it.tw || k)) return;
+    if (!reviewable(it) || seen.has(it.tw || k)) return;
     seen.add(it.tw || k);
     if (!twinsOf(k).some(x => S.rv[x])) S.rv[k] = {d: day0() + (c++ % 7), n: 0};
   });
@@ -460,9 +466,9 @@ function renderList() {
 }
 
 function rvRow(i, done) {
-  const r = S.rv[i.k], n = r ? r.n + 1 : 3;
+  const ago = S.done[i.k] > 1 ? today() - S.done[i.k] : 0; // pre-ticked items store 1, not a day
   return `<li class="row${done ? ' done' : ''}"><div class="rm"><div class="l1">${i.u ? link(i.u, i.t, 'tt') : `<span class="tt">${esc(i.t)}</span>`}<span class="pf pf-${i.pc}">${esc(i.p)}</span>${i.d ? `<span class="df df-${i.d}">${DN[i.d]}</span>` : ''}</div>
-    <div class="tg">${esc(tabName(i.s))} · ${done ? 'done for today' : `re-solve ${n} of 3`}</div></div>
+    <div class="tg">${esc(tabName(i.s))} · ${done ? 'done for today' : ago > 0 ? `solved ${ago} day${ago === 1 ? '' : 's'} ago` : 're-solve from memory'}</div></div>
     <button class="rvb" data-rv="${esc(i.k)}"${done ? ' disabled' : ''}>${done ? 'Re-solved ✓' : 'Re-solved'}</button></li>`;
 }
 
@@ -471,7 +477,7 @@ function renderPlan() {
   $('#pl-more').style.display = go ? '' : 'none';
   if (go) {
     const T = ensureToday(), [d, t] = todayProgress();
-    $('#pl-title').textContent = 'Today, ' + new Date().toLocaleDateString(undefined, {weekday: 'long', day: 'numeric', month: 'short'});
+    $('#pl-title').textContent = 'Today, ' + new Date(today() * 864e5).toLocaleDateString(undefined, {weekday: 'long', day: 'numeric', month: 'short', timeZone: 'UTC'});
     $('#pl-sub').textContent = t ? `${d} of ${t} done` : '';
     const out = T.slots.map(sl => {
       const tr = TRACKS.find(x => x.id === sl.id);
@@ -497,7 +503,7 @@ document.addEventListener('click', e => {
   const rb = e.target.closest('.rvb');
   if (rb) {
     const k = rb.dataset.rv, r = S.rv[k];
-    if (r) { if (r.n >= RV_GAP.length) delete S.rv[k]; else S.rv[k] = {d: today() + RV_GAP[r.n], n: r.n + 1}; }
+    if (r) delete S.rv[k]; // one re-solve per question, so it's retired
     ensureToday().rd[k] = 1; save(); renderNav(); renderPlan(); return;
   }
   if (e.target.closest('#pl-more')) {
@@ -516,7 +522,7 @@ document.addEventListener('change', e => {
   const it = BYK[k], keys = twinsOf(k);
   if (e.target.checked) {
     keys.forEach(x => { S.done[x] = today(); });
-    if (it && !it.r && !keys.some(x => S.rv[x])) S.rv[k] = {d: today() + 3, n: 0};
+    if (reviewable(it) && !keys.some(x => S.rv[x])) S.rv[k] = {d: today() + RV_AFTER, n: 0};
   } else keys.forEach(x => { delete S.done[x]; delete S.rv[x]; });
   save(); renderNav();
   if (S.tab === 'plan') renderPlan(); else renderList();
