@@ -231,7 +231,7 @@ footer{color:var(--muted);font-size:12.5px;padding:16px 0 40px;border-top:1px so
 <li>When you tick a question, it comes back here once, <b>7 days</b> later, for a re-solve from memory. Press <b>Re-solved</b> and it's done.</li>
 <li>Re-solve from a blank editor, or answer out loud. If you couldn't do it, leave it: it comes back the next day until you can.</li>
 <li>Every re-solve that's due is on the list, so nothing piles up or comes back late. Courses and project or A/B items don't come back.</li>
-<li>A new day starts at 4 am, so a session past midnight still counts as the same day.</li>
+<li>A new day starts at midnight (12 am).</li>
 
 </ul>
 
@@ -312,8 +312,8 @@ function match(i) {
 }
 const pass = i => match(i) && !(S.f.hide && S.done[i.k]);
 
-// ---------- plan: local day numbers. A new day starts at 4 am, so a session past midnight still counts as the same day.
-const today = () => { const t = new Date(); return Math.floor((t - t.getTimezoneOffset() * 6e4 - 4 * 36e5) / 864e5); };
+// ---------- plan: local day numbers. A new day starts at midnight (the user's choice, 2026-11-11).
+const today = () => { const t = new Date(); return Math.floor((t - t.getTimezoneOffset() * 6e4) / 864e5); };
 const weekday = () => (today() + 4) % 7; // 0 = Sunday, like Date.getDay(); day 0 (1 Jan 1970) was a Thursday
 const dateOf = n => new Date(n * 864e5).toLocaleDateString(undefined, {day: 'numeric', month: 'short', timeZone: 'UTC'});
 const longDate = n => new Date(n * 864e5).toLocaleDateString(undefined, {weekday: 'long', day: 'numeric', month: 'long', timeZone: 'UTC'});
