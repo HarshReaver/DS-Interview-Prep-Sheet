@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Prompt Answers</title>
 <style>
-:root{--bg:#f5f5f2;--panel:#fff;--text:#1d1d1f;--muted:#66666e;--line:#e2e2de;--soft:#efefeb;--accent:#2a5fd6;--ok:#1d7f46;--warn:#b86200;--bad:#c0392b;--hl:#fff6d6}
-@media (prefers-color-scheme:dark){:root{--bg:#121214;--panel:#1b1b1e;--text:#ececee;--muted:#a2a2aa;--line:#2d2d32;--soft:#232328;--accent:#7ea4ff;--ok:#4cc38a;--warn:#ffab52;--bad:#ff7b6e;--hl:#2e2a16}}
+:root{--bg:#f5f5f2;--panel:#fff;--text:#1d1d1f;--muted:#66666e;--line:#e2e2de;--soft:#efefeb;--accent:#2a5fd6;--ok:#1d7f46;--warn:#b86200;--bad:#c0392b;--hl:#fff6d6;--life:#e8f1ff}
+@media (prefers-color-scheme:dark){:root{--bg:#121214;--panel:#1b1b1e;--text:#ececee;--muted:#a2a2aa;--line:#2d2d32;--soft:#232328;--accent:#7ea4ff;--ok:#4cc38a;--warn:#ffab52;--bad:#ff7b6e;--hl:#2e2a16;--life:#17243d}}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
-.wrap{max-width:820px;margin:0 auto;padding:24px 16px 80px}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:780px;margin:0 auto;padding:24px 16px 80px}
 a{color:var(--accent)}
 h1{font-size:26px;margin:8px 0 4px}
 h2{font-size:20px;margin:40px 0 12px;padding-top:8px;border-top:1px solid var(--line)}
@@ -19,13 +19,14 @@ h2{font-size:20px;margin:40px 0 12px;padding-top:8px;border-top:1px solid var(--
 .q{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:16px 0;scroll-margin-top:12px}
 .q:target{outline:3px solid var(--accent);outline-offset:2px}
 .q h3{margin:0 0 10px;font-size:18px;line-height:1.4}
-.q h4{margin:16px 0 4px;font-size:15px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
-.say{background:var(--hl);border-radius:8px;padding:10px 14px;margin:8px 0}
-.say b:first-child{display:block;font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.q h4{margin:16px 0 4px;font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.one{font-size:17px;font-weight:600;margin:4px 0 10px}
+.box{border-radius:8px;padding:10px 14px;margin:10px 0}
+.box>b:first-child{display:block;font-size:12.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.say{background:var(--hl)} .life{background:var(--life)}
 .q ul,.q ol{padding-left:22px;margin:6px 0}
 .q li{margin:3px 0}
-code,.f{font-family:ui-monospace,Consolas,monospace;font-size:14px;background:var(--soft);padding:1px 5px;border-radius:4px}
-pre{background:var(--soft);border-radius:8px;padding:10px 12px;overflow-x:auto;font-size:13.5px;line-height:1.5}
+.words{color:var(--muted);font-size:14.5px}
 table{border-collapse:collapse;margin:8px 0;font-size:14.5px}
 th,td{border:1px solid var(--line);padding:5px 10px;text-align:left}
 th{background:var(--soft)}
@@ -40,7 +41,6 @@ svg .bx{fill:var(--soft);stroke:var(--line);stroke-width:1.5}
 svg .ac{stroke:var(--accent);fill:none;stroke-width:2.5}
 svg .acf{fill:var(--accent)} svg .wf{fill:var(--warn)} svg .okf{fill:var(--ok)} svg .badf{fill:var(--bad)}
 svg .wa{stroke:var(--warn);fill:none;stroke-width:2.5}
-svg .ok{stroke:var(--ok);fill:none;stroke-width:2.5}
 svg .bad{stroke:var(--bad);fill:none;stroke-width:2}
 .cap{color:var(--muted);font-size:14px;margin-top:-4px}
 .top{font-size:14px}
@@ -50,393 +50,339 @@ svg .bad{stroke:var(--bad);fill:none;stroke-width:2}
 <div class="wrap">
 <p class="top"><a href="index.html">← Back to the sheet</a></p>
 <h1>Practice prompt answers</h1>
-<p class="sub">Full answers for the practice prompts in the sheet. Say your own answer out loud first, then read. "Say it in an interview" is the 60-second version; the rest is the idea behind it, so you can handle follow-up questions.</p>
+<p class="sub">Say your own answer out loud first, then read. Each answer has one line to remember, what to say in the interview, an everyday example that makes it stick, and the key words interviewers like to hear.</p>
 
 <div class="toc"><b>Contents</b>
 <ol>
-<li><a href="#ab">A/B testing</a> (10 prompts)</li>
-<li><a href="#ml">Practical ML pitfalls</a> (7 prompts)</li>
-<li><a href="#product">Product sense</a> (2 worked cases)</li>
+<li><a href="#ab">A/B testing</a> (10)</li>
+<li><a href="#ml">Practical ML mistakes</a> (7)</li>
+<li><a href="#product">Product questions</a> (2)</li>
 </ol></div>
 
 <h2 id="ab">A/B testing</h2>
+<p>An A/B test shows the old version (A) to some users and the new version (B) to others, picked at random, and compares what they do. It's how apps like Swiggy, Flipkart and Instagram decide whether a change is really better.</p>
 
-<!-- ============================== ab1 -->
+<!-- ab1 -->
 <div class="q" id="ab1">
 <h3>1. Design an A/B test for a new checkout button. What do you measure, and for how long?</h3>
-<div class="say"><b>Say it in an interview</b>Goal: more completed purchases. I'd randomise by user, only count users who reach checkout, and use checkout conversion as the one primary metric, with revenue per user, refunds and page load time as guardrails. I'd size the test from the baseline conversion, the smallest lift worth shipping, 5% significance and 80% power, run it for whole weeks, check the split is really 50/50, and decide once at the end.</div>
-<svg viewBox="0 0 640 150" role="img" aria-label="Flow: users reaching checkout are split 50/50 by user id into old and new button, then sanity checks, test and decision">
-<rect class="bx" x="5" y="52" width="130" height="46" rx="8"/><text x="70" y="72" text-anchor="middle">Users who reach</text><text x="70" y="89" text-anchor="middle">checkout</text>
-<rect class="bx" x="165" y="52" width="120" height="46" rx="8"/><text x="225" y="72" text-anchor="middle">Hash user id</text><text x="225" y="89" text-anchor="middle">→ 50 / 50</text>
+<p class="one">Random split by user → one main number → a few "must not get worse" numbers → run full weeks → decide once at the end.</p>
+<div class="box say"><b>Say it in the interview</b>
+<ol>
+<li><b>Goal:</b> more people finish buying.</li>
+<li><b>Split:</b> randomly put each <i>user</i> in A or B, and keep them there every visit.</li>
+<li><b>Who counts:</b> only people who reach the checkout page, because only they see the button.</li>
+<li><b>Main number:</b> out of people who reach checkout, how many buy.</li>
+<li><b>Must not get worse:</b> money spent per user, returns or cancellations, page speed.</li>
+<li><b>How long:</b> long enough to get enough users (next question), and in full weeks, because people shop differently on weekends.</li>
+<li><b>At the end:</b> first check the split really was 50/50, then check whether B's result is a real difference or luck.</li>
+</ol></div>
+<svg viewBox="0 0 640 150" role="img" aria-label="Users who reach checkout are split at random into old and new button, then results are checked and a decision is made">
+<rect class="bx" x="5" y="52" width="130" height="46" rx="8"/><text x="70" y="72" text-anchor="middle">People who reach</text><text x="70" y="89" text-anchor="middle">checkout</text>
+<rect class="bx" x="165" y="52" width="120" height="46" rx="8"/><text x="225" y="72" text-anchor="middle">Random split</text><text x="225" y="89" text-anchor="middle">50 / 50</text>
 <rect class="bx" x="320" y="8" width="120" height="40" rx="8"/><text x="380" y="33" text-anchor="middle">A: old button</text>
 <rect class="bx" x="320" y="102" width="120" height="40" rx="8"/><text x="380" y="127" text-anchor="middle">B: new button</text>
-<rect class="bx" x="470" y="52" width="165" height="46" rx="8"/><text x="552" y="72" text-anchor="middle">Sanity checks, then</text><text x="552" y="89" text-anchor="middle">test → ship or not</text>
+<rect class="bx" x="470" y="52" width="165" height="46" rx="8"/><text x="552" y="72" text-anchor="middle">Compare who bought</text><text x="552" y="89" text-anchor="middle">→ keep or drop B</text>
 <path class="ax" d="M135 75H163M285 70L318 30M285 80L318 120M440 28L468 66M440 122L468 84"/>
 </svg>
-<h4>The whole idea</h4>
-<ol>
-<li><b>Hypothesis.</b> "The new button increases the share of checkout visitors who complete a purchase."</li>
-<li><b>Unit of randomisation: the user</b>, not the page view or session. Otherwise one person sees both buttons, and their visits aren't independent. Hashing the user id keeps each user in the same group every visit.</li>
-<li><b>Who to count:</b> only users who reach the checkout page. Counting everyone dilutes the effect with people who never saw the button and makes the test need far more users.</li>
-<li><b>Metrics.</b>
- <ul><li><b>Primary (decides the launch):</b> checkout conversion = purchases ÷ users who reached checkout.</li>
- <li><b>Guardrails (must not get worse):</b> revenue per user, average order value, refunds or cancellations, page load time, error rate.</li>
- <li><b>Sanity (invariant) metrics:</b> number of users in each group, which should match the planned split.</li></ul></li>
-<li><b>Size and duration:</b> work out users per group from the sample-size formula (prompt 2), then divide by daily checkout traffic. Round up to <b>whole weeks</b>, because weekday and weekend shoppers behave differently, and run at least 1–2 weeks to let the novelty effect fade.</li>
-<li><b>Launch safely:</b> start at 1–5% of traffic for a day to catch bugs, then go to 50/50.</li>
-<li><b>Analyse once at the planned end:</b> sanity checks first, then a two-proportion z-test with a confidence interval, then compare the lift with the smallest lift worth shipping.</li>
-</ol>
-<h4>Likely follow-ups</h4>
-<ul><li>"What if the test shows a big lift on day 2?" Don't stop: see prompt 5.</li>
-<li>"What if conversion rises but revenue falls?" See prompt 8.</li></ul>
+<div class="box life"><b>Everyday example</b>A cricket toss decides who bats first, so neither captain can pick the easier conditions. Random splitting does the same: it makes the A and B groups alike, so any difference comes from the button and not from who happened to be in each group.</div>
+<p class="words"><b>Key words:</b> hypothesis, randomise by user, primary metric, guardrail metrics, run full weeks.</p>
 </div>
 
-<!-- ============================== ab2 -->
+<!-- ab2 -->
 <div class="q" id="ab2">
 <h3>2. How do you work out the sample size for a test?</h3>
-<div class="say"><b>Say it in an interview</b>I need four things: the baseline rate, the minimum detectable effect (the smallest change worth detecting), the significance level (usually 5%) and the power (usually 80%). For a conversion metric, a good rule of thumb is n per group ≈ 16·p(1−p)/δ². The key intuition: halving the effect you want to detect needs four times as many users.</div>
-<h4>The formula</h4>
-<p>For two groups and a conversion rate <span class="f">p</span>, with an absolute difference <span class="f">δ</span> to detect:</p>
-<pre>n per group = (z₁₋α/₂ + z₁₋β)² × 2·p(1−p) / δ²
-            = (1.96 + 0.84)² × 2·p(1−p) / δ²   ≈ 16 · p(1−p) / δ²   (α = 0.05, power = 80%)</pre>
-<h4>Worked example</h4>
-<p>Baseline conversion 10%, and the business only cares about a lift to 11% (δ = 1 percentage point):</p>
-<pre>n ≈ 16 × 0.10 × 0.90 / 0.01² = 16 × 0.09 / 0.0001 = 14,400 users per group  →  28,800 in total</pre>
-<p>With 2,000 checkout users a day, that's 14.4 days, so you'd run <b>3 full weeks</b>. Want to detect 0.5 pp instead? 57,600 per group, four times as many.</p>
-<svg viewBox="0 0 600 260" role="img" aria-label="Curve: users needed per group falls steeply as the detectable effect grows">
-<path class="ax" d="M60 20V220H560"/>
+<p class="one">Small change → many users. Want to spot half the change? You need about four times the users.</p>
+<div class="box say"><b>Say it in the interview</b>I need to know four things: how the metric does today (say 10% of visitors buy), the smallest improvement worth catching (say 10% to 11%), how sure I want to be that a "win" isn't luck (usually 95%), and how likely I want to be to catch a real improvement (usually 80%). I put these into an online sample-size calculator or Python. The thing to remember: smaller improvements need many more users.</div>
+<svg viewBox="0 0 600 250" role="img" aria-label="Users needed falls steeply as the size of the change grows">
+<path class="ax" d="M60 20V210H560"/>
 <polyline class="ac" points="60,28 80,87 110,135 160,172 260,199 360,208 460,212 560,215"/>
 <circle class="acf" cx="60" cy="28" r="4"/><circle class="acf" cx="160" cy="172" r="4"/><circle class="acf" cx="360" cy="208" r="4"/>
-<text x="72" y="32">0.5 pp → 57,600 per group</text>
-<text x="172" y="166">1 pp → 14,400</text>
-<text x="350" y="198">2 pp → 3,600</text>
-<text x="60" y="240" class="mu sm">0.5</text><text x="160" y="240" class="mu sm" text-anchor="middle">1</text><text x="360" y="240" class="mu sm" text-anchor="middle">2</text><text x="560" y="240" class="mu sm" text-anchor="end">3</text>
-<text x="310" y="256" text-anchor="middle" class="mu sm">Minimum detectable effect (percentage points, baseline 10%)</text>
-<text x="14" y="120" class="mu sm" transform="rotate(-90 14 120)" text-anchor="middle">Users per group</text>
+<text x="72" y="32">tiny change: ~58,000 users per group</text>
+<text x="172" y="166">small change: ~14,000</text>
+<text x="350" y="198">bigger change: ~3,600</text>
+<text x="310" y="235" text-anchor="middle" class="mu sm">size of the change you want to catch →</text>
+<text x="20" y="115" class="mu sm" transform="rotate(-90 20 115)" text-anchor="middle">users needed</text>
 </svg>
-<p class="cap">Users needed fall with the square of the effect size.</p>
-<h4>Likely follow-ups</h4>
-<ul><li>"Where does the minimum detectable effect come from?" From the business: the smallest lift that pays for building and maintaining the change.</li>
-<li>"Not enough traffic?" Test a bigger change, use a metric that's closer to the change (button clicks rather than revenue), reduce variance (CUPED, see prompt 3), or accept a longer test.</li></ul>
+<div class="box life"><b>Everyday example</b>Is a coin a little unfair (51% heads)? You'd need thousands of flips to tell. A badly unfair coin (80% heads) shows itself in about 20 flips. Small differences need lots of data.</div>
+<p class="words"><b>Key words:</b> baseline rate, minimum detectable effect (MDE), significance level 5%, power 80%.</p>
 </div>
 
-<!-- ============================== ab3 -->
+<!-- ab3 -->
 <div class="q" id="ab3">
 <h3>3. What is statistical power, and how do you increase it?</h3>
-<div class="say"><b>Say it in an interview</b>Power is the chance the test detects an effect when one really exists, so 1 minus the false-negative rate β. We usually aim for 80%. You raise it with more users, a bigger effect, or a less noisy metric, for example with CUPED, which uses each user's pre-experiment behaviour to remove noise. A higher significance level also raises power, but buys it with more false positives.</div>
-<svg viewBox="0 0 640 240" role="img" aria-label="Two bell curves: no-effect distribution and true-effect distribution; the area beyond the critical line is alpha under the first and power under the second">
+<p class="one">Power = the chance your test catches a real improvement. Aim for 80%.</p>
+<div class="box say"><b>Say it in the interview</b>Power is how likely the test is to notice an effect that really exists. With low power, a good change can look like "no difference" and get thrown away. To raise power: get more users or run longer, test a bigger change, or use a less noisy metric (for example, clicks on the button rather than total revenue, which jumps around a lot).</div>
+<svg viewBox="0 0 640 240" role="img" aria-label="Two bell curves: results if B does nothing and results if B really helps; the overlap is where mistakes happen">
 <path class="badf" opacity=".35" d="M352,200 L352,178 354,180 356,181 359,183 361,184 363,185 365,186 367,188 370,189 372,190 374,190 376,191 378,192 381,193 383,193 385,194 387,195 389,195 392,196 394,196 396,196 398,197 400,197 403,197 405,198 407,198 409,198 411,198 414,199 416,199 418,199 420,199 422,199 425,199 427,199 429,199 431,199 433,200 436,200 438,200 440,200 Z"/>
 <path class="wf" opacity=".35" d="M200,200 L204,200 208,199 211,199 215,199 219,199 223,199 227,198 230,198 234,198 238,197 242,197 246,196 249,195 253,194 257,193 261,192 265,191 268,189 272,188 276,186 280,184 284,181 287,178 291,176 295,172 299,169 303,165 306,161 310,156 314,152 318,147 322,141 325,136 329,130 333,125 337,119 341,113 344,107 348,101 352,95 L352,200 Z"/>
 <path class="ln" d="M40,200 L50,199 60,199 70,198 80,197 90,195 100,193 110,189 120,183 130,176 140,168 150,157 160,144 170,129 180,114 190,98 200,83 210,69 220,59 230,52 240,50 250,52 260,59 270,69 280,83 290,98 300,114 310,129 320,144 330,157 340,168 350,176 360,183 370,189 380,193 390,195 400,197 410,198 420,199 430,199 440,200"/>
 <path class="ac" d="M200,200 L210,199 220,199 230,198 240,197 250,195 260,193 270,189 280,183 290,176 300,168 310,157 320,144 330,129 340,114 350,98 360,83 370,69 380,59 390,52 400,50 410,52 420,59 430,69 440,83 450,98 460,114 470,129 480,144 490,157 500,168 510,176 520,183 530,189 540,193 550,195 560,197 570,198 580,199 590,199 600,200"/>
 <path class="ax" d="M30 200H620"/><path class="ln dash" d="M352 30V210"/>
-<text x="240" y="40" text-anchor="middle">No real effect</text><text x="400" y="40" text-anchor="middle" class="acf">Real effect</text>
-<text x="356" y="226">critical value (z = 1.96)</text>
-<text x="395" y="190" class="sm">α</text><text x="300" y="190" class="sm">β</text>
-<text x="495" y="80" class="sm">power = 1 − β</text><text x="495" y="95" class="sm mu">(blue area right</text><text x="495" y="109" class="sm mu">of the line)</text>
+<text x="240" y="40" text-anchor="middle">If B does nothing</text><text x="400" y="40" text-anchor="middle" class="acf">If B really helps</text>
+<text x="356" y="226">"call it a win" line</text>
+<text x="395" y="190" class="sm">false win</text><text x="262" y="190" class="sm">missed win</text>
+<text x="495" y="80" class="sm">power = blue area</text><text x="495" y="95" class="sm mu">right of the line</text>
 </svg>
-<p class="cap">Left curve: the results you'd see if B does nothing; right curve: if B truly helps. Red = false positive rate α, orange = false negative rate β. More users make both curves narrower, so they overlap less and power goes up.</p>
-<h4>The whole idea</h4>
-<ul>
-<li><b>α (5%)</b>: chance of calling a win when there's no effect. <b>β (20%)</b>: chance of missing a real effect. <b>Power = 1 − β = 80%</b>.</li>
-<li>Ways to raise power: more users or a longer test; a bigger change; a metric closer to the change (less noise); variance reduction: CUPED adjusts each user's metric with their pre-experiment value, capping extreme values (winsorising) also works; a one-sided test only if you decided that before the test.</li>
-<li><b>Why low power hurts twice:</b> you miss real effects, and the "wins" you do find tend to overstate the effect (the winner's curse).</li>
-</ul>
+<p class="cap">More users make both curves thinner, so they overlap less: fewer false wins, fewer missed wins, more power.</p>
+<div class="box life"><b>Everyday example</b>Looking for a dropped earring in a dark room. Power is your chance of finding it if it's really there. A brighter torch (more users) or a bigger earring (a bigger change) makes it easier to find.</div>
+<p class="words"><b>Key words:</b> power = 1 − β, false negative (Type II error), 80% power, variance reduction (CUPED).</p>
 </div>
 
-<!-- ============================== ab4 -->
+<!-- ab4 -->
 <div class="q" id="ab4">
 <h3>4. Your test ends with p = 0.06. What do you tell the product manager?</h3>
-<div class="say"><b>Say it in an interview</b>At our agreed 5% bar, this isn't significant, so we can't claim a win. I'd show the confidence interval, for example +0.8% with a range from about 0% to +1.6%: the true effect could be nothing or could be worth having. Then the decision is a business one: if the change is cheap and low-risk we might ship it knowing the evidence is weak, or we rerun a properly powered test. What I wouldn't do is extend the test or slice segments until something turns significant.</div>
-<h4>The whole idea</h4>
-<ul>
-<li><b>What p = 0.06 means:</b> if B truly made no difference, results at least this extreme would show up 6% of the time. It does <i>not</i> mean "94% chance B is better".</li>
-<li><b>Significance isn't importance:</b> report the effect size and its confidence interval, and compare it with the smallest effect that matters to the business.</li>
-<li><b>Options:</b> (1) don't ship; (2) ship on business grounds if it's cheap and reversible, stating the evidence honestly; (3) run a new test sized for the effect you care about.</li>
-<li><b>Mistakes to avoid (p-hacking):</b> extending the test until p &lt; 0.05, checking segments until one is significant, switching to a one-sided test after seeing the data.</li>
-</ul>
+<p class="one">Not proven, but not proven useless either. Don't stretch the rules to make it pass.</p>
+<div class="box say"><b>Say it in the interview</b>We agreed a result counts only if p is below 0.05, so this isn't a proven win. But it isn't proof that B is useless either: the likely effect ranges from about zero to a small improvement. Then it's a business call: if the change is cheap and easy to undo, we might ship it knowing the evidence is weak; otherwise we run a bigger test. What I won't do is run the test longer or dig through user groups until something looks significant.</div>
+<div class="box life"><b>Everyday example</b>The pass mark is 40 and you scored 38. The teacher doesn't round it up because you were close, but 38 also doesn't mean you know nothing. Re-taking the exam properly is fair; changing the pass mark after seeing the score isn't.</div>
+<p class="words"><b>Key words:</b> pre-agreed significance level, confidence interval, practical vs statistical significance, p-hacking.</p>
 </div>
 
-<!-- ============================== ab5 -->
+<!-- ab5 -->
 <div class="q" id="ab5">
 <h3>5. Why is checking the results every day a problem?</h3>
-<div class="say"><b>Say it in an interview</b>The p-value moves around a lot early in a test. If you stop the first time it dips below 0.05, every look is another chance to catch a false positive, so the real false-positive rate can climb from 5% to 20% or more. Fix the sample size in advance and decide once, or use a sequential test designed for repeated looks. Watching the dashboard for bugs is fine; stopping early because it looks like a win isn't.</div>
-<svg viewBox="0 0 640 240" role="img" aria-label="P-value over 20 days dips below 0.05 on day 6, then ends around 0.32">
+<p class="one">Fix the end date before you start. Look if you like, but don't stop early because it looks good.</p>
+<div class="box say"><b>Say it in the interview</b>Early in a test, results swing up and down by luck. If you check every day and stop the first time it looks significant, you'll often catch one of those lucky swings and declare a false win. So decide the test length before starting and judge it once at the end. If the team really needs early looks, use a method designed for that (sequential testing). Watching daily for bugs is fine.</div>
+<svg viewBox="0 0 640 240" role="img" aria-label="The p-value over 20 days dips below 0.05 on day 6 by luck, then ends well above it">
 <path class="ax" d="M50 20V210H600"/>
-<path class="bad dash" d="M50 191H600"/><text x="598" y="185" text-anchor="end" class="sm">p = 0.05</text>
+<path class="bad dash" d="M50 191H600"/><text x="598" y="185" text-anchor="end" class="sm">"significant" line</text>
 <polyline class="ac" points="50,39 78,96 107,66 135,134 164,176 192,195 220,183 249,164 277,142 306,153 334,119 362,130 391,96 419,107 448,85 476,100 504,73 533,92 561,81 590,88"/>
 <circle class="badf" cx="192" cy="195" r="5"/>
-<text x="200" y="225" class="sm">Day 6: "significant!" if you stop here</text>
-<text x="590" y="75" text-anchor="end" class="sm">Day 20: p = 0.32</text>
-<text x="20" y="115" class="mu sm" transform="rotate(-90 20 115)" text-anchor="middle">p-value (0 to 0.5)</text>
+<text x="200" y="225" class="sm">Day 6: looks like a win, if you stop here</text>
+<text x="590" y="70" text-anchor="end" class="sm">Day 20: no real difference</text>
+<text x="22" y="115" class="mu sm" transform="rotate(-90 22 115)" text-anchor="middle">p-value</text>
 </svg>
-<p class="cap">An A/A-like test with no real effect: the p-value wanders, and a daily peeker would have stopped on day 6 with a false win.</p>
-<h4>The numbers</h4>
-<table><tr><th>Equally spaced looks, each at p &lt; 0.05</th><th>1</th><th>5</th><th>10</th><th>20</th></tr>
-<tr><td>Real chance of a false positive</td><td>5%</td><td>~14%</td><td>~19%</td><td>~25%</td></tr></table>
-<h4>Fixes</h4>
-<ul><li>Decide the sample size up front (prompt 2) and analyse once.</li>
-<li><b>Sequential testing</b> with alpha spending (for example O'Brien–Fleming): very strict thresholds at early looks, close to 0.05 at the end.</li>
-<li>Always-valid p-values (used by some experiment platforms) are built for continuous monitoring.</li></ul>
+<div class="box life"><b>Everyday example</b>Declaring the winner of a T20 match after the 6th over because one team is ahead. Teams are often ahead early by luck; the result only counts after 20 overs.</div>
+<p class="words"><b>Key words:</b> peeking, inflated false positives, fixed sample size, sequential testing.</p>
 </div>
 
-<!-- ============================== ab6 -->
+<!-- ab6 -->
 <div class="q" id="ab6">
 <h3>6. You tracked 10 metrics and one is significant. Is it a win?</h3>
-<div class="say"><b>Say it in an interview</b>Probably not on its own. With 10 independent metrics at 5%, the chance that at least one comes out significant by luck is 1 − 0.95¹⁰ ≈ 40%. That's why you declare one primary metric before the test. If several metrics matter, correct for multiple comparisons: Bonferroni (divide 0.05 by the number of tests) is strict; Benjamini–Hochberg controls the share of false discoveries and keeps more power. A surprise result on a secondary metric is a hypothesis for the next test, not a launch decision.</div>
-<h4>Worked example: 5 metrics, p-values sorted</h4>
-<div class="tw"><table>
-<tr><th>Rank k</th><th>p-value</th><th>Bonferroni: p &lt; 0.05/5 = 0.01?</th><th>BH: p ≤ (k/5)·0.05?</th></tr>
-<tr><td>1</td><td>0.003</td><td>yes</td><td>0.010 → yes</td></tr>
-<tr><td>2</td><td>0.012</td><td>no</td><td>0.020 → yes</td></tr>
-<tr><td>3</td><td>0.021</td><td>no</td><td>0.030 → yes</td></tr>
-<tr><td>4</td><td>0.040</td><td>no</td><td>0.040 → yes</td></tr>
-<tr><td>5</td><td>0.300</td><td>no</td><td>0.050 → no</td></tr>
-</table></div>
-<p>Benjamini–Hochberg: find the largest k where p<sub>(k)</sub> ≤ (k/m)·q, and call ranks 1..k significant. The same problem shows up with many variants (A/B/C/D) and with slicing results by many segments.</p>
+<p class="one">Check enough numbers and one will look good by luck. Pick one main metric before the test.</p>
+<div class="box say"><b>Say it in the interview</b>Probably not. If you check 10 metrics, there's roughly a 40% chance that at least one looks significant just by luck. That's why we choose one main metric before the test starts. If several metrics really matter, we use a stricter bar for each one (for example, divide 0.05 by the number of metrics, called the Bonferroni correction). A surprise result on a side metric is an idea for the next test, not a reason to launch.</div>
+<div class="box life"><b>Everyday example</b>Buy one lottery ticket and you'll almost surely lose. Buy ten and your chance of a small win goes up, without you getting any luckier. Each extra metric is another ticket.</div>
+<p class="words"><b>Key words:</b> multiple comparisons, primary metric, Bonferroni correction, false discovery rate (Benjamini–Hochberg).</p>
 </div>
 
-<!-- ============================== ab7 -->
+<!-- ab7 -->
 <div class="q" id="ab7">
 <h3>7. The treatment group got 52% of users instead of 50%. What does that tell you?</h3>
-<div class="say"><b>Say it in an interview</b>That's a sample ratio mismatch, and with a large sample it's almost never chance. I'd run a chi-square test on the counts; if it fails, something in assignment or logging is broken, so I wouldn't trust any metric from the test until I'd found the cause and rerun it.</div>
-<h4>Check it with a chi-square test</h4>
-<pre>100,000 users, expected 50,000 / 50,000, observed 52,000 / 48,000
-χ² = (52,000 − 50,000)²/50,000 + (48,000 − 50,000)²/50,000 = 80 + 80 = 160   →  p ≈ 10⁻³⁶</pre>
-<p>Compare 520 vs 480 out of 1,000: χ² = 1.6, p ≈ 0.2, which is normal noise. The same percentage means very different things at different sample sizes.</p>
-<h4>Common causes</h4>
-<ul><li>The new version is slower or crashes, so some B users leave before they're logged.</li>
-<li>Bot filtering or redirects affect one group more.</li>
-<li>A bug in the hashing or assignment code.</li>
-<li>Whether a user counts in the test depends on the variant they saw.</li></ul>
+<p class="one">Uneven split in a big test = something is broken. Fix it before trusting any result.</p>
+<div class="box say"><b>Say it in the interview</b>That's called a sample ratio mismatch. With a few hundred users, 52/48 can be luck. With 100,000 users it almost never is, and a quick chi-square test would confirm that. It usually means a bug: for example, the new version crashes or loads slowly, so some B users leave before they're counted. I wouldn't trust any result from the test until we found and fixed the cause.</div>
+<div class="box life"><b>Everyday example</b>A shop hands out two kinds of free samples, half and half. At closing, one counter has given out far fewer. With 10 customers that's luck; with 10,000 it means something went wrong at that counter, like a long queue that made people give up.</div>
+<p class="words"><b>Key words:</b> sample ratio mismatch (SRM), chi-square test, sanity checks.</p>
 </div>
 
-<!-- ============================== ab8 -->
+<!-- ab8 -->
 <div class="q" id="ab8">
 <h3>8. Conversion went up but revenue per user went down. Do you ship?</h3>
-<div class="say"><b>Say it in an interview</b>It depends on the goal we agreed before the test. Revenue per user = conversion × average order value, so more people are buying, but they're spending less each. I'd check whether the revenue drop is significant, which products shifted, whether it's a novelty effect, and whether the new buyers come back. If revenue or profit is the goal and it fell, I wouldn't ship; if the goal is getting new customers and their long-term value makes up for it, I might.</div>
-<h4>Worked example</h4>
-<div class="tw"><table><tr><th></th><th>Conversion</th><th>Average order</th><th>Revenue per user</th></tr>
-<tr><td>A (control)</td><td>5.0%</td><td>₹1,000</td><td>₹50.00</td></tr>
-<tr><td>B (new)</td><td>5.5%</td><td>₹850</td><td>₹46.75</td></tr></table></div>
-<p>B made buying easier but pushed people toward cheaper items (a mix shift). Things to check: segments (new vs returning users), effect over time (novelty), margin rather than revenue, and repeat purchases over the next weeks.</p>
-<p><b>The lesson for interviews:</b> agree on one overall evaluation criterion and its guardrails before the test, so a result like this has a pre-agreed answer.</p>
+<p class="one">More buyers but smaller bills. The answer depends on the goal you agreed before the test.</p>
+<div class="box say"><b>Say it in the interview</b>More people bought, but each spent less, so total money per user fell. Before deciding, I'd check: is the revenue drop real or noise? Are people switching to cheaper products? Is it just early excitement about something new? Do the new buyers come back later? If the goal was revenue, I wouldn't ship. If the goal was winning new customers and they're worth more over time, I might. Ideally the team agrees on the main goal before the test, so this situation has a ready answer.</div>
+<div class="tw"><table><tr><th></th><th>People who buy</th><th>Average bill</th><th>Money per visitor</th></tr>
+<tr><td>A (old)</td><td>5 in 100</td><td>₹1,000</td><td>₹50</td></tr>
+<tr><td>B (new)</td><td>6 in 100</td><td>₹750</td><td>₹45</td></tr></table></div>
+<div class="box life"><b>Everyday example</b>A restaurant puts a cheap thali on the menu. More people come in, but most order the thali instead of a full meal, so the restaurant earns less per customer.</div>
+<p class="words"><b>Key words:</b> guardrail metric, average order value, mix shift, novelty effect, long-term value.</p>
 </div>
 
-<!-- ============================== ab9 -->
+<!-- ab9 -->
 <div class="q" id="ab9">
 <h3>9. A feature can't be A/B tested, for example a city-wide launch. How do you measure its impact?</h3>
-<div class="say"><b>Say it in an interview</b>I'd use a quasi-experiment. The simplest is difference-in-differences: compare the change in the launch city with the change in a similar city that didn't get the feature over the same period. That removes trends both cities share, like festivals or seasons. The key assumption is parallel trends, which I'd check on the weeks before launch. Alternatives are synthetic control (a weighted mix of several cities that matches the launch city before launch) and interrupted time series.</div>
-<svg viewBox="0 0 600 250" role="img" aria-label="Difference in differences: launch city rises from 1000 to 1300, control city from 800 to 900, dashed counterfactual 1000 to 1100, effect 200">
+<p class="one">Compare the change in the launch city with the change in a similar city that didn't get the feature.</p>
+<div class="box say"><b>Say it in the interview</b>I'd use difference-in-differences. Orders in the launch city went up by 300 a day; in a similar city without the launch they went up by 100, from things like festivals or weather that affect both. So the feature's effect is about 200. This only works if the two cities were moving together before the launch, so I'd check that first. Other options are building a "fake" comparison city from several similar cities (synthetic control), or comparing with what the past trend predicted.</div>
+<svg viewBox="0 0 600 250" role="img" aria-label="Launch city rises from 1000 to 1300 orders, similar city from 800 to 900; without the launch the city would have reached about 1100, so the effect is about 200">
 <path class="ax" d="M60 20V220H560"/><path class="ax dash" d="M300 20V220"/>
 <text x="300" y="238" text-anchor="middle" class="mu sm">launch</text>
 <text x="120" y="238" text-anchor="middle" class="mu sm">before</text><text x="480" y="238" text-anchor="middle" class="mu sm">after</text>
 <path class="ac" d="M120 134L480 49"/><path class="ac dash" d="M120 134L480 106" opacity=".6"/><path class="ln" d="M120 191L480 163"/>
 <circle class="acf" cx="120" cy="134" r="4"/><circle class="acf" cx="480" cy="49" r="4"/><circle cx="120" cy="191" r="4" class="mu"/><circle cx="480" cy="163" r="4" class="mu"/>
-<path class="wa" d="M500 52V103"/><text x="508" y="82" class="sm">effect = +200</text>
-<text x="70" y="126" class="sm">Launch city 1,000</text><text x="440" y="40" class="sm">1,300</text>
-<text x="70" y="208" class="sm">Similar city 800</text><text x="440" y="182" class="sm">900</text>
-<text x="330" y="128" class="sm mu">what the launch city would have done</text>
+<path class="wa" d="M500 52V103"/><text x="508" y="82" class="sm">effect ≈ +200</text>
+<text x="70" y="126" class="sm">Launch city: 1,000 orders</text><text x="440" y="40" class="sm">1,300</text>
+<text x="70" y="208" class="sm">Similar city: 800</text><text x="440" y="182" class="sm">900</text>
+<text x="300" y="128" class="sm mu">where the launch city would have been</text>
 </svg>
-<pre>effect = (1,300 − 1,000) − (900 − 800) = 300 − 100 = +200 orders a day</pre>
-<h4>Other options</h4>
-<ul><li><b>Synthetic control:</b> build a "fake" control city as a weighted average of other cities that tracks the launch city closely before launch.</li>
-<li><b>Interrupted time series:</b> forecast what would have happened from the pre-launch trend, and compare with what did happen.</li>
-<li><b>Matching or propensity scores:</b> for opt-in features, compare users who opted in with similar users who didn't.</li></ul>
+<div class="box life"><b>Everyday example</b>You start eating healthy and lose 3 kg in a month. Your roommate, who changed nothing, lost 1 kg in the same hot exam month. So the diet's real effect is about 2 kg.</div>
+<p class="words"><b>Key words:</b> quasi-experiment, difference-in-differences, parallel trends, synthetic control.</p>
 </div>
 
-<!-- ============================== ab10 -->
+<!-- ab10 -->
 <div class="q" id="ab10">
 <h3>10. In a social or marketplace app, users in the test affect each other. Why does that break a normal A/B test, and what do you do?</h3>
-<div class="say"><b>Say it in an interview</b>A normal A/B test assumes one user's group doesn't affect another user's outcome. In a ride app, if treatment riders get a discount, they take drivers away from control riders, so control looks worse and the effect is overstated. In a social app, a new sharing feature reaches control users through their friends. The fix is to randomise bigger units that don't interact much: whole cities or friend clusters, or switch the whole market between A and B over time (switchback tests). You pay for it with fewer units and so less power.</div>
-<svg viewBox="0 0 640 220" role="img" aria-label="Left: users randomised individually, so connected users get different versions. Right: whole clusters randomised together">
-
-<text x="160" y="20" text-anchor="middle">Randomise each user</text><text x="480" y="20" text-anchor="middle">Randomise whole clusters</text>
-<g transform="translate(90 80)"><circle r="22" class="bx"/><circle cx="-10" cy="-7" r="6" class="acf"/><circle cx="8" cy="-10" r="6" class="wf"/><circle cx="-8" cy="9" r="6" class="wf"/><circle cx="10" cy="8" r="6" class="acf"/></g><g transform="translate(210 70)"><circle r="22" class="bx"/><circle cx="-10" cy="-7" r="6" class="acf"/><circle cx="8" cy="-10" r="6" class="wf"/><circle cx="-8" cy="9" r="6" class="wf"/><circle cx="10" cy="8" r="6" class="acf"/></g><g transform="translate(150 160)"><circle r="22" class="bx"/><circle cx="-10" cy="-7" r="6" class="acf"/><circle cx="8" cy="-10" r="6" class="wf"/><circle cx="-8" cy="9" r="6" class="wf"/><circle cx="10" cy="8" r="6" class="acf"/></g>
-<g transform="translate(410 80)"><circle r="22" class="bx"/><circle cx="-10" cy="-7" r="6" class="acf"/><circle cx="8" cy="-10" r="6" class="acf"/><circle cx="-8" cy="9" r="6" class="acf"/><circle cx="10" cy="8" r="6" class="acf"/></g><g transform="translate(530 70)"><circle r="22" class="bx"/><circle cx="-10" cy="-7" r="6" class="wf"/><circle cx="8" cy="-10" r="6" class="wf"/><circle cx="-8" cy="9" r="6" class="wf"/><circle cx="10" cy="8" r="6" class="wf"/></g><g transform="translate(470 160)"><circle r="22" class="bx"/><circle cx="-10" cy="-7" r="6" class="wf"/><circle cx="8" cy="-10" r="6" class="wf"/><circle cx="-8" cy="9" r="6" class="wf"/><circle cx="10" cy="8" r="6" class="wf"/></g>
+<p class="one">If A and B users share drivers, sellers or friends, test whole groups at once instead of single users.</p>
+<div class="box say"><b>Say it in the interview</b>A normal test assumes one user's version doesn't affect anyone else. In a ride app, if B riders get a discount, they book more and take drivers away from A riders, so A looks worse than it really is and B's win looks bigger than it is. The fix is to give the same version to whole groups that don't mix much: whole cities, or whole friend groups in a social app. Another way is to switch an entire city between A and B by time, for example every hour (a switchback test). The cost is fewer independent groups, so the test needs to run longer.</div>
+<svg viewBox="0 0 640 220" role="img" aria-label="Left: users in the same group get different versions. Right: each whole group gets one version">
+<text x="160" y="20" text-anchor="middle">Split single users</text><text x="480" y="20" text-anchor="middle">Split whole groups</text>
+<g transform="translate(90 80)"><circle r="22" class="bx"/><circle cx="-10" cy="-7" r="6" class="acf"/><circle cx="8" cy="-10" r="6" class="wf"/><circle cx="-8" cy="9" r="6" class="wf"/><circle cx="10" cy="8" r="6" class="acf"/></g>
+<g transform="translate(210 70)"><circle r="22" class="bx"/><circle cx="-10" cy="-7" r="6" class="acf"/><circle cx="8" cy="-10" r="6" class="wf"/><circle cx="-8" cy="9" r="6" class="wf"/><circle cx="10" cy="8" r="6" class="acf"/></g>
+<g transform="translate(150 160)"><circle r="22" class="bx"/><circle cx="-10" cy="-7" r="6" class="acf"/><circle cx="8" cy="-10" r="6" class="wf"/><circle cx="-8" cy="9" r="6" class="wf"/><circle cx="10" cy="8" r="6" class="acf"/></g>
+<g transform="translate(410 80)"><circle r="22" class="bx"/><circle cx="-10" cy="-7" r="6" class="acf"/><circle cx="8" cy="-10" r="6" class="acf"/><circle cx="-8" cy="9" r="6" class="acf"/><circle cx="10" cy="8" r="6" class="acf"/></g>
+<g transform="translate(530 70)"><circle r="22" class="bx"/><circle cx="-10" cy="-7" r="6" class="wf"/><circle cx="8" cy="-10" r="6" class="wf"/><circle cx="-8" cy="9" r="6" class="wf"/><circle cx="10" cy="8" r="6" class="wf"/></g>
+<g transform="translate(470 160)"><circle r="22" class="bx"/><circle cx="-10" cy="-7" r="6" class="wf"/><circle cx="8" cy="-10" r="6" class="wf"/><circle cx="-8" cy="9" r="6" class="wf"/><circle cx="10" cy="8" r="6" class="wf"/></g>
 <path class="ax dash" d="M320 30V200"/>
-<text x="160" y="212" text-anchor="middle" class="sm mu">A and B users interact inside each group</text>
-<text x="480" y="212" text-anchor="middle" class="sm mu">interaction stays within one version</text>
+<text x="160" y="212" text-anchor="middle" class="sm mu">A and B users mix inside each group</text>
+<text x="480" y="212" text-anchor="middle" class="sm mu">each group gets one version</text>
 <circle cx="20" cy="190" r="6" class="acf"/><text x="30" y="194" class="sm">A</text><circle cx="55" cy="190" r="6" class="wf"/><text x="65" y="194" class="sm">B</text>
 </svg>
-<h4>Options</h4>
-<ul><li><b>Cluster (geo) randomisation:</b> whole cities or regions get one version.</li>
-<li><b>Graph-cluster randomisation:</b> for social apps, groups of friends that mostly interact with each other.</li>
-<li><b>Switchback tests:</b> the whole market alternates between A and B in time slots (for example every hour); common in ride and delivery apps.</li></ul>
+<div class="box life"><b>Everyday example</b>Half a hostel gets free Maggi coupons from the mess. Those students rush to the mess, the queue grows, and the students without coupons wait longer and eat less. Now the coupon group looks extra happy compared with an unfairly unhappy other group.</div>
+<p class="words"><b>Key words:</b> network effects, interference, cluster (geo) randomisation, switchback test.</p>
 </div>
 
-<h2 id="ml">Practical ML pitfalls</h2>
+<h2 id="ml">Practical ML mistakes</h2>
 
-<!-- ============================== mlp1 -->
+<!-- mlp1 -->
 <div class="q" id="mlp1">
 <h3>1. Your fraud model has 99% accuracy and 1% of transactions are fraud. Is it good?</h3>
-<div class="say"><b>Say it in an interview</b>Not necessarily. A model that always says "not fraud" also gets 99% accuracy and catches nothing. With rare positives I'd look at precision (of the flagged transactions, how many are fraud), recall (of the fraud, how much we catch) and PR-AUC. To handle the imbalance I'd use class weights or resample only the training folds, keep stratified validation, and tune the decision threshold to the cost of each mistake.</div>
-<h4>The always-"not fraud" model on 10,000 transactions</h4>
-<div class="tw"><table><tr><th></th><th>Predicted fraud</th><th>Predicted not fraud</th></tr>
-<tr><th>Actually fraud (100)</th><td>TP = 0</td><td>FN = 100</td></tr>
-<tr><th>Actually not fraud (9,900)</th><td>FP = 0</td><td>TN = 9,900</td></tr></table></div>
-<p>Accuracy = 9,900 / 10,000 = 99%. Recall = 0 / 100 = 0%. Useless.</p>
-<h4>The whole idea</h4>
-<ul><li><b>Precision</b> = TP / (TP + FP); <b>recall</b> = TP / (TP + FN); <b>F1</b> is their harmonic mean.</li>
-<li><b>PR-AUC</b> is more informative than ROC-AUC when positives are rare, because ROC's false-positive rate stays tiny even when you flag lots of good transactions.</li>
-<li><b>Fixes:</b> class weights (<code>class_weight='balanced'</code>), undersampling or SMOTE applied <i>only to training folds</i> (never before the split), stratified K-fold, threshold tuning (pitfall 4), and more fraud labels if possible.</li></ul>
+<p class="one">When the thing you're hunting is rare, accuracy lies. Ask how many frauds it catches and how many of its alarms are right.</p>
+<div class="box say"><b>Say it in the interview</b>Not necessarily. A model that always says "not fraud" is also 99% accurate and catches zero fraud. I'd look at <b>recall</b> (of all the fraud, how much did we catch?) and <b>precision</b> (of the transactions we flagged, how many were really fraud?). To help the model learn the rare class, I'd tell it that fraud mistakes count more (class weights), or balance the training data, and then choose the alarm cut-off carefully.</div>
+<div class="tw"><table><tr><th>The lazy "never fraud" model, 1,000 transactions</th><th>Result</th></tr>
+<tr><td>Fraud cases (10)</td><td>catches 0</td></tr>
+<tr><td>Normal cases (990)</td><td>all correct</td></tr>
+<tr><td>Accuracy</td><td>99%, but useless</td></tr></table></div>
+<div class="box life"><b>Everyday example</b>In Jaipur, a weather app that always says "no rain" is right on most days, and useless on the one day you needed an umbrella. Recall asks: of the rainy days, how many did it warn you about? Precision asks: when it said rain, how often did it rain?</div>
+<p class="words"><b>Key words:</b> class imbalance, precision, recall, F1, PR-AUC, class weights, resampling (only on training data).</p>
 </div>
 
-<!-- ============================== mlp2 -->
+<!-- mlp2 -->
 <div class="q" id="mlp2">
 <h3>2. What is data leakage? Give two examples and how you prevent it.</h3>
-<div class="say"><b>Say it in an interview</b>Leakage is when training uses information that won't be available at prediction time, so offline scores look great and the model fails in production. Example one: a "chargeback filed" feature in a fraud model; it's only known after the fraud. Example two: fitting the scaler or imputer on the whole dataset before splitting, so test-set statistics leak into training. I prevent it by splitting first, putting all preprocessing inside a pipeline that's fitted per fold, splitting by time or by user when needed, and checking for every feature: would I know this at the moment of prediction?</div>
-<svg viewBox="0 0 640 170" role="img" aria-label="Wrong: fit preprocessing on all data then split. Right: split first, fit on train only, apply to test">
+<p class="one">Leakage = the model peeks at answers it won't have in real life. Great practice score, poor real score.</p>
+<div class="box say"><b>Say it in the interview</b>Leakage is when training data contains information the model won't have at prediction time. Example one: predicting loan default using "number of recovery calls made"; those calls only happen <i>after</i> someone defaults. Example two: filling missing values with the average of the whole dataset before splitting, so the test data quietly influences training. To prevent it: split the data first, do all cleaning steps on the training part only (a scikit-learn Pipeline does this for you), and for each feature ask, "would I really know this at the moment of prediction?"</div>
+<svg viewBox="0 0 640 170" role="img" aria-label="Wrong: learn from all data, then split. Right: split first, learn from training part only, then apply to the test part">
 <text x="10" y="36" class="badf">Wrong</text>
 <rect class="bx" x="80" y="15" width="110" height="34" rx="7"/><text x="135" y="37" text-anchor="middle">All data</text>
-<rect class="bx" x="225" y="15" width="170" height="34" rx="7"/><text x="310" y="37" text-anchor="middle">Fit scaler / imputer</text>
+<rect class="bx" x="225" y="15" width="170" height="34" rx="7"/><text x="310" y="37" text-anchor="middle">Clean using all data</text>
 <rect class="bx" x="430" y="15" width="90" height="34" rx="7"/><text x="475" y="37" text-anchor="middle">Split</text>
-<text x="530" y="37" class="sm badf">test leaked</text>
+<text x="530" y="37" class="sm badf">test peeked</text>
 <path class="ax" d="M190 32H223M395 32H428"/>
 <text x="10" y="121" class="okf">Right</text>
 <rect class="bx" x="80" y="100" width="110" height="34" rx="7"/><text x="135" y="122" text-anchor="middle">All data</text>
 <rect class="bx" x="225" y="100" width="90" height="34" rx="7"/><text x="270" y="122" text-anchor="middle">Split</text>
-<rect class="bx" x="350" y="80" width="150" height="34" rx="7"/><text x="425" y="102" text-anchor="middle">Fit on train only</text>
-<rect class="bx" x="350" y="124" width="150" height="34" rx="7"/><text x="425" y="146" text-anchor="middle">Apply to test</text>
-<path class="ax" d="M190 117H223M315 112L348 98M315 122L348 140M425 114V122"/>
+<rect class="bx" x="350" y="80" width="170" height="34" rx="7"/><text x="435" y="102" text-anchor="middle">Learn from train only</text>
+<rect class="bx" x="350" y="124" width="170" height="34" rx="7"/><text x="435" y="146" text-anchor="middle">Apply to test</text>
+<path class="ax" d="M190 117H223M315 112L348 98M315 122L348 140M435 114V122"/>
 </svg>
-<h4>Common kinds of leakage</h4>
-<ul><li><b>Target leakage:</b> a feature created from or after the outcome (chargeback flag, "account closed" for a churn model).</li>
-<li><b>Preprocessing leakage:</b> scaling, imputing, feature selection or oversampling done before the split.</li>
-<li><b>Duplicate or group leakage:</b> the same customer or patient in both train and test.</li>
-<li><b>Time leakage:</b> a random split on time-ordered data, or rolling features that include the current day.</li></ul>
-<p><b>Warning signs:</b> scores that look too good, or one feature with overwhelming importance.</p>
-<pre>from sklearn.pipeline import make_pipeline
-model = make_pipeline(SimpleImputer(strategy="median"), StandardScaler(), LogisticRegression())
-cross_val_score(model, X, y, cv=5)   # the imputer and scaler are refitted inside every fold</pre>
+<div class="box life"><b>Everyday example</b>A student who saw the question paper before the mock exam scores 100, then fails the real exam. The marks were real, but they didn't measure what they were supposed to.</div>
+<p class="words"><b>Key words:</b> target leakage, train-test contamination, Pipeline, "available at prediction time".</p>
 </div>
 
-<!-- ============================== mlp3 -->
+<!-- mlp3 -->
 <div class="q" id="mlp3">
 <h3>3. How do you split the data for a time-series or per-user problem?</h3>
-<div class="say"><b>Say it in an interview</b>For time series I'd never split randomly, because that lets the model learn from the future. I'd train on the past and test on the period after it, and use walk-forward validation: several folds where the training window grows and the test window moves forward. For per-user data I'd use a grouped split, so all of one user's rows are in train or in test, never both; otherwise the model memorises users and the score is too optimistic.</div>
-<svg viewBox="0 0 600 185" role="img" aria-label="Walk-forward validation: four folds, training window grows, test window follows it">
-<g><text x="10" y="35" class="sm">Fold 1</text><rect x="70" y="20" width="150" height="22" class="acf" opacity=".8"/><rect x="222" y="20" width="48" height="22" class="wf"/></g>
-<g><text x="10" y="70" class="sm">Fold 2</text><rect x="70" y="55" width="200" height="22" class="acf" opacity=".8"/><rect x="272" y="55" width="48" height="22" class="wf"/></g>
-<g><text x="10" y="105" class="sm">Fold 3</text><rect x="70" y="90" width="250" height="22" class="acf" opacity=".8"/><rect x="322" y="90" width="48" height="22" class="wf"/></g>
-<g><text x="10" y="140" class="sm">Fold 4</text><rect x="70" y="125" width="300" height="22" class="acf" opacity=".8"/><rect x="372" y="125" width="48" height="22" class="wf"/></g>
+<p class="one">Train on the past, test on the future. Keep each person entirely on one side.</p>
+<div class="box say"><b>Say it in the interview</b>For data over time, I never split randomly, because then the model learns from the future. I train on earlier months and test on later ones, repeating this a few times as the window moves forward (walk-forward validation). When there are several rows per user or patient, I keep all of one person's rows together, all in training or all in testing; otherwise the model just recognises people it has already seen.</div>
+<svg viewBox="0 0 600 185" role="img" aria-label="Walk-forward validation: each round trains on more past data and tests on the period right after">
+<g><text x="10" y="35" class="sm">Round 1</text><rect x="70" y="20" width="150" height="22" class="acf" opacity=".8"/><rect x="222" y="20" width="48" height="22" class="wf"/></g>
+<g><text x="10" y="70" class="sm">Round 2</text><rect x="70" y="55" width="200" height="22" class="acf" opacity=".8"/><rect x="272" y="55" width="48" height="22" class="wf"/></g>
+<g><text x="10" y="105" class="sm">Round 3</text><rect x="70" y="90" width="250" height="22" class="acf" opacity=".8"/><rect x="322" y="90" width="48" height="22" class="wf"/></g>
+<g><text x="10" y="140" class="sm">Round 4</text><rect x="70" y="125" width="300" height="22" class="acf" opacity=".8"/><rect x="372" y="125" width="48" height="22" class="wf"/></g>
 <path class="ax" d="M70 165H560"/><path class="ax" d="M552 160L560 165L552 170"/><text x="560" y="182" text-anchor="end" class="sm mu">time →</text>
 <rect x="440" y="20" width="14" height="14" class="acf" opacity=".8"/><text x="460" y="32" class="sm">train</text>
 <rect x="440" y="44" width="14" height="14" class="wf"/><text x="460" y="56" class="sm">test</text>
 </svg>
-<ul><li>scikit-learn: <code>TimeSeriesSplit</code> for time, <code>GroupKFold</code> (or <code>StratifiedGroupKFold</code>) for users or patients.</li>
-<li>If features use windows (for example "orders in the last 7 days"), leave a gap between train and test so the windows don't overlap.</li>
-<li>The final test set should be the most recent period, because that's closest to what the model will face.</li></ul>
+<div class="box life"><b>Everyday example</b>You can't practise predicting this IPL season using results from next season. And a teacher who tests students with the exact questions they practised learns nothing about whether they understood.</div>
+<p class="words"><b>Key words:</b> time-based split, walk-forward validation (TimeSeriesSplit), group split (GroupKFold).</p>
 </div>
 
-<!-- ============================== mlp4 -->
+<!-- mlp4 -->
 <div class="q" id="mlp4">
 <h3>4. How do you choose the classification threshold?</h3>
-<div class="say"><b>Say it in an interview</b>0.5 is just a default. I'd choose the threshold from the cost of each mistake: if a missed fraud costs ₹5,000 and a wrongly blocked customer costs ₹100, I'd compute the total cost on the validation set at each threshold and pick the cheapest. Or, if the business sets a target like "catch 90% of fraud", I'd take the threshold with the best precision that still meets it. If the scores will be read as probabilities, I'd calibrate them first.</div>
-<svg viewBox="0 0 600 250" role="img" aria-label="Precision rises and recall falls as the threshold increases; the chosen threshold sits where expected cost is lowest">
+<p class="one">Set the alarm level by asking which mistake costs more.</p>
+<div class="box say"><b>Say it in the interview</b>The model gives a score from 0 to 1, and 0.5 is only a default cut-off. I'd pick it based on what each mistake costs. Missing a fraud might cost ₹5,000, while wrongly blocking a good customer costs much less, so for fraud I'd use a lower cut-off and catch more, accepting some extra false alarms. I'd try different cut-offs on validation data and pick the one with the lowest total cost, or the one that meets a target like "catch 90% of fraud".</div>
+<svg viewBox="0 0 600 250" role="img" aria-label="As the cut-off rises, the share of correct alarms rises and the share of frauds caught falls; the chosen cut-off balances the cost">
 <path class="ax" d="M60 20V215H560"/>
 <path class="ac" d="M60,205 C160,120 300,50 560,35"/><path class="wa" d="M60,30 C200,40 380,120 560,205"/>
 <path class="ln dash" d="M330 20V215"/>
-<text x="490" y="30" class="acf">precision</text><text x="470" y="188" class="wf">recall</text>
-<text x="336" y="232" class="sm">chosen: lowest total cost</text>
-<text x="60" y="232" class="mu sm">0</text><text x="560" y="232" class="mu sm" text-anchor="end">1</text>
-<text x="310" y="248" class="mu sm" text-anchor="middle">threshold</text>
+<text x="440" y="28" class="acf sm">alarms that are right</text><text x="440" y="186" class="wf sm">frauds caught</text>
+<text x="336" y="232" class="sm">best balance of costs</text>
+<text x="60" y="232" class="mu sm">low cut-off</text><text x="560" y="232" class="mu sm" text-anchor="end">high cut-off</text>
 </svg>
-<pre>total cost(t) = FP(t) × ₹100 + FN(t) × ₹5,000     →  choose t with the lowest cost on validation data</pre>
-<ul><li>Raising the threshold flags fewer cases: precision usually rises, recall falls.</li>
-<li>Calibration (Platt scaling or isotonic regression, <code>CalibratedClassifierCV</code>) makes a score of 0.3 really mean "30% chance".</li></ul>
+<div class="box life"><b>Everyday example</b>An airport metal detector set too sensitive beeps at every belt buckle and the queue never moves; set too loose, it misses real danger. Airports choose sensitive, because missing danger costs far more than an extra check. A spam filter does the opposite: losing an important email is worse than seeing one spam message.</div>
+<p class="words"><b>Key words:</b> decision threshold, precision–recall trade-off, cost of false positives vs false negatives, calibration.</p>
 </div>
 
-<!-- ============================== mlp5 -->
+<!-- mlp5 -->
 <div class="q" id="mlp5">
 <h3>5. Your model was great offline but is worse in production. Why?</h3>
-<div class="say"><b>Say it in an interview</b>I'd check four things. Training-serving skew: features computed differently in the live system than in my notebook. Data drift: live inputs look different, for example new kinds of users or a new season. Concept drift: the relationship itself changed, like fraudsters adapting. And leakage that made the offline score fake in the first place. To find out, I'd log the live features and compare their distributions with training, replay live data through the offline pipeline, and break the errors down by segment and time.</div>
-<div class="tw"><table><tr><th>Cause</th><th>Example</th><th>Fix</th></tr>
-<tr><td>Training-serving skew</td><td>Missing income is 0 in training but NULL live</td><td>One shared feature pipeline; log live features</td></tr>
-<tr><td>Data drift</td><td>Festival-season shoppers, a new city</td><td>Monitor input distributions (PSI, KS test); retrain on recent data</td></tr>
-<tr><td>Concept drift</td><td>Fraudsters change tactics</td><td>Regular retraining; watch live precision and recall</td></tr>
-<tr><td>Offline leakage</td><td>Random split on time data</td><td>Time-based validation (pitfall 3)</td></tr>
-<tr><td>Feedback loop</td><td>Blocked transactions never get a fraud label</td><td>Keep a small random holdout that the model doesn't act on</td></tr></table></div>
+<p class="one">The real world isn't the practice data: inputs changed, behaviour changed, or the practice test was flawed.</p>
+<div class="box say"><b>Say it in the interview</b>Four usual reasons. One: the live system builds features differently from my notebook (for example, missing values filled differently). Two: the incoming data has changed, like new types of users or a festival season. Three: behaviour itself changed; fraudsters learn new tricks. Four: the offline score was too good because of leakage. I'd compare live inputs with the training data, check results by user group and over time, fix the pipeline, and retrain on recent data. Then I'd set up monitoring so this gets caught early next time.</div>
+<div class="box life"><b>Everyday example</b>A batter who practised only on flat home nets struggles on a bouncy overseas pitch. The skill was real, but the conditions changed.</div>
+<p class="words"><b>Key words:</b> training-serving skew, data drift, concept drift, monitoring, retraining.</p>
 </div>
 
-<!-- ============================== mlp6 -->
+<!-- mlp6 -->
 <div class="q" id="mlp6">
 <h3>6. How do you handle missing values and outliers?</h3>
-<div class="say"><b>Say it in an interview</b>First I ask why values are missing, because missingness itself can carry information, for example high earners skipping the income field. Then: drop a column that's mostly empty, impute the median for skewed numbers and "Unknown" for categories, add an is_missing flag, and fit the imputer on training data only. Tree boosters like XGBoost can handle missing values directly. For outliers, I check whether they're errors; if they're real, I cap them, log-transform, or use a robust model, and in fraud the outliers may be exactly what we're looking for.</div>
-<svg viewBox="0 0 600 140" role="img" aria-label="Box plot with whiskers to 1.5 IQR fences and two outliers beyond the upper fence">
+<p class="one">First ask why. Fill gaps with the middle value plus a "was missing" flag. Fix typos, cap real extremes.</p>
+<div class="box say"><b>Say it in the interview</b>For missing values, I first ask why they're missing, because sometimes the blank itself tells you something. Then: drop a column if it's mostly empty; fill numbers with the median and categories with "Unknown"; and add a yes/no column saying the value was missing. For outliers, I check whether they're mistakes, like age 250, and fix or remove those. If they're real but extreme, I cap them or use a model that isn't thrown off by them, such as tree-based models. In fraud detection, the outliers may be exactly what we're looking for.</div>
+<svg viewBox="0 0 600 140" role="img" aria-label="Box plot: most values sit in the box, two points far to the right are outliers">
 <path class="ln" d="M100 60H180M300 60H420M100 45V75M420 45V75"/>
 <rect x="180" y="35" width="120" height="50" class="bx"/><path class="ac" d="M230 35V85"/>
 <circle cx="480" cy="60" r="5" class="badf"/><circle cx="545" cy="60" r="5" class="badf"/>
-<text x="180" y="105" text-anchor="middle" class="sm">Q1</text><text x="230" y="105" text-anchor="middle" class="sm">median</text><text x="300" y="105" text-anchor="middle" class="sm">Q3</text>
-<text x="420" y="105" text-anchor="middle" class="sm">Q3 + 1.5·IQR</text><text x="512" y="40" text-anchor="middle" class="sm badf">outliers</text>
-<text x="240" y="128" text-anchor="middle" class="sm mu">IQR = Q3 − Q1 (the box)</text>
+<text x="240" y="105" text-anchor="middle" class="sm">middle half of the data</text><text x="230" y="27" text-anchor="middle" class="sm">median</text>
+<text x="420" y="105" text-anchor="middle" class="sm">normal range ends</text><text x="512" y="40" text-anchor="middle" class="sm badf">outliers</text>
 </svg>
-<h4>Missing values</h4>
-<ul><li><b>Why missing?</b> Completely at random (safe to impute), depends on other columns (impute with a model), or depends on the value itself (add a flag, since the missingness is informative).</li>
-<li><b>Options:</b> drop rows (only if few and random); drop the column (mostly missing); median, mode or "Unknown"; KNN or iterative imputation; is_missing indicator; models that handle NaN.</li></ul>
-<h4>Outliers</h4>
-<ul><li><b>Detect:</b> the IQR rule (below Q1 − 1.5·IQR or above Q3 + 1.5·IQR), z-score above 3, or domain rules (age 250 is an error).</li>
-<li><b>Treat:</b> fix or drop errors; for real extremes, cap at the 1st and 99th percentiles (winsorise), log-transform skewed values, or use robust models (trees, Huber loss).</li></ul>
+<div class="box life"><b>Everyday example</b>Ten friends in a room earn about ₹30,000 a month each. Mukesh Ambani walks in, and the <i>average</i> income becomes crores, while the <i>median</i> (the middle person) barely moves. That's why we fill gaps with the median. Blanks can mean something too: if people skip "income" on a form, the skippers are often the high earners.</div>
+<p class="words"><b>Key words:</b> median imputation, missing indicator, IQR rule, capping (winsorising), robust models.</p>
 </div>
 
-<!-- ============================== mlp7 -->
+<!-- mlp7 -->
 <div class="q" id="mlp7">
 <h3>7. How would you explain feature importance to a non-technical stakeholder, and what are its limits?</h3>
-<div class="say"><b>Say it in an interview</b>For the whole model, I'd use permutation importance: "if we scramble 'days since last login', the model's accuracy drops the most, so that's what it relies on most." For one customer, SHAP values: "the average churn risk is 20%; this customer is at 72%, and 30 points of that come from not logging in for 30 days." The limits: importance shows what the model uses, not what causes the outcome; correlated features share or swap importance; and a suspiciously important feature can be a sign of leakage.</div>
-<svg viewBox="0 0 600 190" role="img" aria-label="Bar chart of feature importance for a churn model">
+<p class="one">"Mix up one input and see how much worse the model gets." It shows what the model uses, not what causes the result.</p>
+<div class="box say"><b>Say it in the interview</b>For the whole model: "if we scramble the 'days since last login' column, the model gets much worse, so it relies on that most." That's permutation importance. For one customer, SHAP values split their score into parts: "this customer's risk is high mainly because they haven't logged in for 30 days." The limits: it shows what the model <i>uses</i>, not what <i>causes</i> people to leave; two similar features can share or swap importance; and a feature that seems far too important can be a sign of leakage.</div>
+<svg viewBox="0 0 600 190" role="img" aria-label="Bar chart: days since last login is the most important input for a churn model">
 <text x="180" y="32" text-anchor="end" class="sm">days since last login</text><rect x="190" y="20" width="310" height="18" class="acf"/>
-<text x="180" y="62" text-anchor="end" class="sm">support tickets</text><rect x="190" y="50" width="180" height="18" class="acf"/>
+<text x="180" y="62" text-anchor="end" class="sm">complaints raised</text><rect x="190" y="50" width="180" height="18" class="acf"/>
 <text x="180" y="92" text-anchor="end" class="sm">monthly spend</text><rect x="190" y="80" width="140" height="18" class="acf"/>
-<text x="180" y="122" text-anchor="end" class="sm">tenure (months)</text><rect x="190" y="110" width="110" height="18" class="acf"/>
+<text x="180" y="122" text-anchor="end" class="sm">months as customer</text><rect x="190" y="110" width="110" height="18" class="acf"/>
 <text x="180" y="152" text-anchor="end" class="sm">plan type</text><rect x="190" y="140" width="50" height="18" class="acf"/>
-<text x="345" y="182" text-anchor="middle" class="mu sm">drop in validation score when the feature is shuffled</text>
+<text x="345" y="182" text-anchor="middle" class="mu sm">how much worse the model gets when this input is scrambled</text>
 </svg>
-<ul><li><b>Built-in tree importance</b> (impurity-based) is quick but favours features with many unique values.</li>
-<li><b>Permutation importance</b>: shuffle one feature on validation data and measure how much the score drops.</li>
-<li><b>SHAP</b>: splits each prediction into contributions per feature that add up to (prediction − average prediction).</li>
-<li><b>Never say</b> "increase X and churn will fall" from importance alone; that needs an experiment.</li></ul>
+<div class="box life"><b>Everyday example</b>To see who matters most in a cricket team, drop one player at a time and watch how much the team's results fall. And remember: ice-cream sales and swimming accidents both rise in summer. They move together, but ice cream doesn't cause accidents.</div>
+<p class="words"><b>Key words:</b> permutation importance, SHAP values, correlation is not causation.</p>
 </div>
 
-<h2 id="product">Product sense</h2>
+<h2 id="product">Product questions</h2>
 
-<!-- ============================== metric -->
+<!-- metric -->
 <div class="q" id="metric">
-<h3>Success-metric questions: "How would you measure the success of Instagram Reels?"</h3>
-<div class="say"><b>The framework (say it in this order)</b>1. Clarify the goal of the product. 2. Who are the users and what do they do? 3. One primary (north-star) metric. 4. Two or three supporting metrics. 5. Guardrails: what must not get worse. 6. How you'd measure it (A/B test, time window).</div>
-<h4>Worked answer</h4>
+<h3>"How would you measure the success of Instagram Reels?"</h3>
+<p class="one">Goal → users → one main number → a few supporting numbers → what must not get worse.</p>
+<div class="box say"><b>Say it in the interview</b>
 <ol>
-<li><b>Goal:</b> keep users engaged with short video and grow creators (competing with YouTube Shorts).</li>
-<li><b>Users:</b> viewers (watch, like, share) and creators (post reels).</li>
-<li><b>Primary:</b> share of daily active users who watch at least one reel, or reel watch time per daily active user.</li>
-<li><b>Supporting:</b> reels shared per viewer (quality signal), creators posting at least one reel a week, 7-day retention of people who watch reels.</li>
-<li><b>Guardrails:</b> time on feed and stories (are reels just stealing from them?), total app time, hide or report rate, ad revenue per user.</li>
-<li><b>Measure:</b> A/B test changes against these, and watch week-over-week trends for the launch itself.</li>
-</ol>
-<p><b>Practise with:</b> Swiggy Instamart, YouTube Shorts, UPI payments in an app, LinkedIn "Easy Apply", a new Spotify playlist feature. Use the same six steps.</p>
+<li><b>Goal:</b> keep people watching short videos on Instagram and keep creators posting (instead of moving to YouTube Shorts).</li>
+<li><b>Users:</b> viewers (watch, like, share) and creators (post).</li>
+<li><b>Main number:</b> how many daily users watch at least one reel.</li>
+<li><b>Supporting:</b> reels shared per viewer, creators posting every week, and whether reel watchers keep coming back.</li>
+<li><b>Must not get worse:</b> time on the feed and stories (are reels just stealing from them?), total app time, and reports or "not interested" taps.</li>
+</ol></div>
+<div class="box life"><b>Everyday example</b>A new dish at a restaurant isn't a success just because people order it. You also check they come back for it, and that it isn't simply replacing the dishes that earn more.</div>
+<p class="words"><b>Practise the same steps on:</b> YouTube Shorts, Swiggy Instamart, LinkedIn Easy Apply, a new Spotify playlist feature.</p>
 </div>
 
-<!-- ============================== drop -->
+<!-- drop -->
 <div class="q" id="drop">
-<h3>Metric-drop questions: "Swiggy orders fell 8% last week. How do you investigate?"</h3>
-<div class="say"><b>The framework (say it in this order)</b>1. Clarify the metric and the comparison. 2. Rule out data problems. 3. Check internal changes and outside events. 4. Segment to see where the drop sits. 5. Break the metric into a funnel to see which step dropped. 6. Form a hypothesis, confirm it, suggest a fix.</div>
-<svg viewBox="0 0 600 200" role="img" aria-label="Order funnel with the payment-success step dropping the most">
-<text x="150" y="28" text-anchor="end" class="sm">App sessions</text><rect x="160" y="16" width="400" height="18" class="acf" opacity=".8"/>
-<text x="150" y="58" text-anchor="end" class="sm">Restaurant viewed</text><rect x="160" y="46" width="300" height="18" class="acf" opacity=".8"/>
-<text x="150" y="88" text-anchor="end" class="sm">Added to cart</text><rect x="160" y="76" width="190" height="18" class="acf" opacity=".8"/>
-<text x="150" y="118" text-anchor="end" class="sm">Checkout started</text><rect x="160" y="106" width="150" height="18" class="acf" opacity=".8"/>
-<text x="150" y="148" text-anchor="end" class="sm">Payment succeeded</text><rect x="160" y="136" width="100" height="18" class="wf"/>
-<text x="270" y="150" class="sm wf">← this step fell (for example a payment gateway issue)</text>
-<text x="360" y="190" text-anchor="middle" class="mu sm">orders = sessions × view rate × add-to-cart rate × checkout rate × payment success rate</text>
-</svg>
-<h4>Worked answer</h4>
+<h3>"Swiggy orders fell 8% last week. How do you investigate?"</h3>
+<p class="one">Is the data right? → What changed? → Where is the drop? → Which step lost people?</p>
+<div class="box say"><b>Say it in the interview</b>
 <ol>
-<li><b>Clarify:</b> orders placed or delivered? Compared with the week before, or the same week last year? Sudden or gradual?</li>
-<li><b>Data problems:</b> a logging change, a broken dashboard, a pipeline delay. Do other sources (payments, restaurant records) also show the drop?</li>
-<li><b>Changes and events:</b> an app release, a price or delivery-fee change, an outage; outside, a festival, a cricket final, heavy rain, or a competitor's offer.</li>
-<li><b>Segment:</b> Android vs iOS and app version, city, new vs returning users, cuisine, time of day. A drop in only one segment points to the cause.</li>
-<li><b>Funnel:</b> find which step's rate fell (the diagram above).</li>
-<li><b>Conclude:</b> "Payment success fell on Android version 5.2 after Tuesday's release, so I'd roll back the payment SDK change and confirm orders recover."</li>
-</ol>
+<li><b>Clarify:</b> orders placed or delivered? Compared with last week, or the same week last year? Sudden or slow?</li>
+<li><b>Is the data right?</b> Maybe the tracking or dashboard broke. Do payment records show the same drop?</li>
+<li><b>What changed?</b> An app update, a price or delivery-fee change, an outage. Outside: a festival, an India match, heavy rain, a Zomato offer.</li>
+<li><b>Where is the drop?</b> Android or iPhone, which app version, which cities, new or old users, lunch or dinner.</li>
+<li><b>Which step lost people?</b> Follow the journey from opening the app to paying (picture below).</li>
+<li><b>Conclude:</b> "Payments started failing on the new Android version after Tuesday's update, so roll back that change and check that orders recover."</li>
+</ol></div>
+<svg viewBox="0 0 600 180" role="img" aria-label="Order journey from app opens to payment; the payment step dropped the most">
+<text x="150" y="28" text-anchor="end" class="sm">Opened the app</text><rect x="160" y="16" width="400" height="18" class="acf" opacity=".8"/>
+<text x="150" y="58" text-anchor="end" class="sm">Viewed a restaurant</text><rect x="160" y="46" width="300" height="18" class="acf" opacity=".8"/>
+<text x="150" y="88" text-anchor="end" class="sm">Added to cart</text><rect x="160" y="76" width="190" height="18" class="acf" opacity=".8"/>
+<text x="150" y="118" text-anchor="end" class="sm">Started checkout</text><rect x="160" y="106" width="150" height="18" class="acf" opacity=".8"/>
+<text x="150" y="148" text-anchor="end" class="sm">Payment worked</text><rect x="160" y="136" width="100" height="18" class="wf"/>
+<text x="270" y="150" class="sm wf">← this step fell (for example, payment failures)</text>
+</svg>
+<div class="box life"><b>Everyday example</b>If your phone suddenly stops charging, you check in order: is the socket on, is it the cable, is it the adapter, is it the phone? Same idea: check each step until you find the broken one.</div>
+<p class="words"><b>Key words:</b> data sanity check, segmentation, funnel analysis, root cause.</p>
 </div>
 
 <p class="top"><a href="index.html">← Back to the sheet</a></p>
